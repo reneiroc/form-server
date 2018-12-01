@@ -7,6 +7,8 @@ const Informe = require('./models/informe.model');
 const morgan = require('morgan');
 const app = express();
 
+
+
 const { mongoose } = require ('./database');//requero solo la conección
 // const aa = x.informe;
 
