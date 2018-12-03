@@ -21,7 +21,7 @@ const { mongoose } = require ('./database');//requero solo la conección
 // Middlewares
 //incluimos la funcion middleware morgan
 app.use ( morgan('dev'));
-app.use(cors({origin: 'http://localhost:8080'}));
+app.use(cors({origin: 'http://localhost:4200'}));//HAbilitar counicación con el frontend server
 app.use(express.json());
 
 
@@ -29,8 +29,8 @@ app.use(express.json());
 
 app.use('/api/informe', require('./routes/informe'));
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 
 app.listen(port, () =>{
-  console.log('server ris up and running onport ' + port);
+  console.log('server risk up and running onport ' + port);
 });

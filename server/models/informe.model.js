@@ -8,7 +8,7 @@ let InformeSchema= new Schema ({
     cliente: { type: String },
     container: { type: String },
     motonave: {  type: String  },
-    importer: { type: String },
+    inporter: { type: String },
     portDest: {  type: String },
     portOrig: { type: String },
     espices: { type: String },
@@ -17,17 +17,18 @@ let InformeSchema= new Schema ({
     booking: { type: String },
     empresaTrasnporte: { type: String },
     cantPallets: { type: Number },
-    horaCarga: { Date },
-    nroSeroContainer: { Number },
-    nroBolsas: { Number },
+    horaCarga: { type: Date },
+    nroBolsas: { type: Number },
     limpio: { type: Boolean },
     preEnfriado: { type: Boolean },
     buenEstado: { type: Boolean },
     tipoCarga: { type: String},
     seteoContainer: { type: Number },
     ventilacion: { type: Number },
+    anoContainer: {type: Date},
+    pti: {type: Date},
+    quest: {type: String},
     coments: { type: String}
 });
 //esportar el model Informe con el esquema definido
 module.exports = mongoose.model('Informe', InformeSchema);
-

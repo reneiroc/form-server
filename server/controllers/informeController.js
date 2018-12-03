@@ -3,34 +3,31 @@ const nodeMailer = require ('nodemailer');
 // const nodeMailer = require('../mailer');
 //Simple version whithout validation or sanitacion
 exports.test = function (req, res) {
-    res.json({
-        status: 'Api Works'
-    });
-
+    res.json({ status: 'Api Works'  });
 };
-/*
-exports.listInformes = function (req, res){
-    Call back function way
-    Informe.find(function (informe, error){
-        ....
-    });
-    Promes Waye
-    Informe.find()
-        .then ()
-        .catch(err => console.error(err));
 
-    Async Await Way :) 
-};
-*/
 exports.listInformes = async (req, res) => {
-   const informe = await Informe.find();
+   
+    informe = await Informe.find();
+   console.log('Perfect');
    res.json( informe);
-//    console.log('Perfect');
 };
 
+// exports.createInforme = async (req, res) => {
+//     let doc = req.body;
+//     const informe = new Informe( req.body);
+//     await informe.save()
+//     .then(mail(doc)) //Envio el Emal
+//     .then(res.json({status: 'Informe Generado con exito'}));
+// };
 exports.createInforme = async (req, res) => {
     let doc = req.body;
     const informe = new Informe( req.body);
+    console.log('*****************************');
+    console.log( doc);
+    console.log('*****************************');
+    
+
     await informe.save()
     .then(mail(doc)) //Envio el Emal
     .then(res.json({status: 'Informe Generado con exito'}));
@@ -71,17 +68,35 @@ let mail = function(informe){
 
       let datos = `
         <p> <h1><strong> Datos de Reporte de Consolidación </strong> </h1></p>
-        <p> Cliente: ${doc.cliente} </p>
-        <p> Orden: ${doc.orden} </p>
-        <p> Planta: ${doc.planta} </p>
-
-      `
+        <p> Cliente: <strong> ${doc.cliente} </strong> </p>
+        <p> Orden: <strong> ${doc.orden} </strong></p>
+        <p> Planta: <strong> ${doc.planta} </strong></p>
+        <p> Container: <strong> ${doc.container } </strong></p>
+        <p> Motonave: <strong> ${doc.motonave } </strong></p>
+        <p> Importador: <strong> ${doc.inporter } </strong></p>
+        <p> Puerto Destino: <strong> ${doc.portDest } </strong></p>
+        <p> Puerto Origen: <strong> ${doc.portOrig } </strong></p>
+        <p> Especie: <strong> ${doc.espices } </strong></p>
+        <p> Patente Camión: <strong> ${doc.patenteCamion } </strong></p>
+        <p> Patente Carro: <strong> ${doc.patenteCarro } </strong></p>
+        <p> Booking: <strong> ${doc.booking } </strong></p>
+        <p> Empresa Transporte: <strong> ${doc.empresaTransporte } </strong></p>
+        <p> Cantidad de Pallets: <strong> ${doc.cantPallets } </strong></p>
+        <p> Hora de Carga: <strong> ${doc.horaCarga } </strong></p>
+        <p> Nro. Seteo Container: <strong> ${doc.numeroSeteoContainer } </strong></p>
+        <p> Nro. Bolsas: <strong> ${doc.nroBolsas } </strong></p>
+        <p> Limpio: <strong> ${doc.limpio = true ? 'Si': 'No'} </strong></p>
+        <p> Pre-Enfriad: <strong> ${doc.preEnfriado = true ? 'Si': 'No'} </strong></p>
+        <p> En buen estado: <strong> ${doc.buenEstado = true ? 'Si': 'No'} </strong></p>
+        <p> Tipo de Carga: <strong> ${doc.tipoCarga } </strong></p>
+        <p> Ventilación: <strong> ${doc.ventilacion } </strong></p>
+        <p> Comentarios: <strong> ${doc.coments } </strong></p> `
 
       let mailOptions = {
-          from: '"Fred Foo 👻" <contacto@rcwebmaster.com>', // sender address
+          from: '"RSK Chile 👻 📃" <contacto@rcwebmaster.com>', // sender address
           to: 'reneiroc@gmail.com', // list of receivers
-          subject: 'Hello ✔', // Subject line
-          text: 'Hello world?', // plain text body
+          subject: 'Reporte de Consolidación ✔', // Subject line
+          text: datos, // plain text body
         
           html: datos// html body
       };
