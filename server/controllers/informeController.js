@@ -23,14 +23,14 @@ exports.listInformes = async (req, res) => {
 exports.createInforme = async (req, res) => {
     let doc = req.body;
     const informe = new Informe( req.body);
-    console.log('*****************************');
-    console.log( doc);
-    console.log('*****************************');
+    // console.log('*****************************');
+    // console.log( doc);
+    // console.log('*****************************');
     
 
     await informe.save()
     .then(mail(doc)) //Envio el Emal
-    .then(res.json({status: 'Informe Generado con exito'}));
+    .then(res.json({status: true}));
 };
 
 exports.editInforme = function (req, res) {
@@ -93,7 +93,7 @@ let mail = function(informe){
         <p> Comentarios: <strong> ${doc.coments } </strong></p> `
 
       let mailOptions = {
-          from: '"RSK Chile 👻 📃" <contacto@rcwebmaster.com>', // sender address
+          from: '"RSK Chile 📃" <contacto@rcwebmaster.com>', // sender address
           to: 'reneiroc@gmail.com', // list of receivers
           subject: 'Reporte de Consolidación ✔', // Subject line
           text: datos, // plain text body
