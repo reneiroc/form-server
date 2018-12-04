@@ -62,8 +62,7 @@ let mail = function(informe){
         auth: {
             user: process.env.SMTP_USER, // generated ethereal user
             pass: process.env.SMTP_PASS // generated ethereal password
-            // user: 'contacto@rcwebmaster.com', // generated ethereal user
-            // pass: 'Maya0978*' // generated ethereal password
+
         }
       };
       var transporter = nodeMailer.createTransport(smtpConfig);
