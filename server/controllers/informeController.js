@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Informe = require('../models/informe.model');
 const nodeMailer = require ('nodemailer');
 // const nodeMailer = require('../mailer');
@@ -53,13 +54,16 @@ exports.getInforme = async (req, res) => {
   // send mail with defined transport object
 let mail = function(informe){
     let doc = informe;
+    process.env.SMTP
     var smtpConfig = {
         host: 'smtp.ionos.com',
         port: 465,
         secure: true, // true for 465, false for other ports
         auth: {
-            user: 'contacto@rcwebmaster.com', // generated ethereal user
-            pass: 'Maya0978*' // generated ethereal password
+            user: process.env.SMTP_USER, // generated ethereal user
+            pass: process.env.SMTP_PASS // generated ethereal password
+            // user: 'contacto@rcwebmaster.com', // generated ethereal user
+            // pass: 'Maya0978*' // generated ethereal password
         }
       };
       var transporter = nodeMailer.createTransport(smtpConfig);

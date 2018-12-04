@@ -21,7 +21,8 @@ const { mongoose } = require ('./database');//requero solo la conección
 // Middlewares
 //incluimos la funcion middleware morgan
 app.use ( morgan('dev'));
-app.use(cors({origin: 'http://localhost:4200'}));//HAbilitar counicación con el frontend server
+app.use(cors({origin: 'http://35.211.175.246:80'}));//HAbilitar counicación con el frontend server
+// app.use(cors({origin: 'http://localhost:4200'}));//HAbilitar counicación con el frontend server
 app.use(express.json());
 
 
