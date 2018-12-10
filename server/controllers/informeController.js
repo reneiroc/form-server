@@ -97,7 +97,7 @@ let mail = function(informe){
 
       let mailOptions = {
           from: '"RSK Chile 📃" <contacto@rcwebmaster.com>', // sender address
-          to: 'reneiroc@gmail.com', // list of receivers
+          to: 'reneiroc@gmail.com, caguilar@riskconsulting.cl', // list of receivers
           subject: 'Reporte de Consolidación ✔', // Subject line
           text: datos, // plain text body
         
