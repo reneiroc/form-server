@@ -102,6 +102,10 @@ let mail = function(informe){
 
         const contenidoHtml  = html.contenidoHtml(doc);
 
+        const config = {
+            "base": "file:///home/www/your-asset-path", 
+            // Base path that's used to load files (images, css, js) when they aren't referenced using a host
+        }
         pdf.create(contenidoHtml).toFile('./informePDF/pdf.pdf', function(err, res) {
             if (err){
                 console.log(err);
