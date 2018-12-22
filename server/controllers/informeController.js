@@ -3,21 +3,22 @@ const Informe = require('../models/informe.model');
 const nodeMailer = require ('nodemailer');
 const pdf = require('html-pdf');
 const html = require('./../html4pdf');// Require the template
-
-
-
+const path = require('path');
+const multer = require('multer');
+let filesPDF = [];
 // const nodeMailer = require('../mailer');
 //Simple version whithout validation or sanitacion
 exports.test = function (req, res) {
     res.json({ status: 'Api Works'  });
 };
 
+//Listar informes
 exports.listInformes = async (req, res) => {
-   
     informe = await Informe.find();
    console.log('Perfect');
    res.json( informe);
 };
+
 
 // exports.createInforme = async (req, res) => {
 //     let doc = req.body;
@@ -91,7 +92,10 @@ let mail = function(informe){
         <p> En buen estado: <strong> ${doc.buenEstado = true ? 'Si': 'No'} </strong></p>
         <p> Tipo de Carga: <strong> ${doc.tipoCarga } </strong></p>
         <p> Ventilación: <strong> ${doc.ventilacion } </strong></p>
-        <p> Comentarios: <strong> ${doc.coments } </strong></p> `
+        <p> Comentarios: <strong> ${doc.coments } </strong></p> 
+       <!-- <img src= "http://localhost:4200/public/uploads/${filesPDF[0]}"> -->
+        
+        `
 
         // const contenidoHtml = `
         // <h1>Ultimo OTRO PDF Esto es un test de html-pdf</h1>
@@ -99,11 +103,12 @@ let mail = function(informe){
         // `;
         // const con = contenidoHtml;
         // Generar PDF
-
-        const contenidoHtml  = html.contenidoHtml(doc);
-
+        var imgSrc = 'file://' + __dirname + '/informe-1545274649217.jpg';
+        imgSrc = path.normalize(imgSrc);
+        const contenidoHtml  = html.contenidoHtml(doc, imgSrc);//envio nombre de imagen
+        console.log (contenidoHtml);
         const config = {
-            "base": "file:///home/www/your-asset-path", 
+            // "base": "file://" + __dirname + "/public/uploads", 
             // Base path that's used to load files (images, css, js) when they aren't referenced using a host
         }
         pdf.create(contenidoHtml).toFile('./informePDF/pdf.pdf', function(err, res) {
@@ -146,7 +151,6 @@ let mail = function(informe){
 
 exports.editInforme = function (req, res) {
     res.send ('editado');
-
 };
 exports.getInforme = async (req, res) => {
    const informe = await Informe.findById(req.params.id);
@@ -155,6 +159,70 @@ exports.getInforme = async (req, res) => {
    console.log(informe);
 
 };
+
+
+// Set The Storage Engine
+const storage = multer.diskStorage({
+    destination: 'public/uploads/',
+    filename: function(req, file, cb){
+      cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+  });
+  
+  // Iniciar Upload
+  const upload = multer({
+    storage: storage,
+    limits:{fileSize: 1000000},
+    fileFilter: function(req, file, cb){
+      checkFileType(file, cb);
+    }
+  }).single('informe');
+  
+  // Check File Type
+  function checkFileType(file, cb){
+    // Allowed ext
+    const filetypes = /jpeg|jpg|png|gif/;
+    // Check ext
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    // Check mime
+    const mimetype = filetypes.test(file.mimetype);
+  
+    if(mimetype && extname){
+      return cb(null,true);
+    } else {
+      cb('Error: Images Only!');
+    }
+  }
+
+
+// Funcion para guardar archivo
+exports.uploader = (req, res) => {
+  console.log(req);
+    upload(req, res, (err) => {
+        if (err) {
+
+          res.json({error: 'error no es tipo  de archivo valido'});
+          console.log(res);
+        } else {
+          if(req.file == undefined){
+            res.json({msg: 'Error: No File Selected!'});
+            console.log('errore no file selected');
+          } else {
+              filesPDF.push(req.file.filename);//Agregar el nombre de archivo uploa
+            res.send({
+              msg: 'File Uploaded!',
+              file: `public/uploads/${req.file.filename}`,
+              fromVar: filesPDF
+            });
+          console.log (req.file);
+          }
+        }
+      });
+
+}
+
+
+
 
 // 
 // let createPDF = function (){

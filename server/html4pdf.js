@@ -1,5 +1,6 @@
 
-exports.contenidoHtml = function (doc){
+
+exports.contenidoHtml = function (doc, image){
     // return `
     // <h1>Cliente:  ${datos.cliente} PDF para usarse en email</h1>
     // <p>PDF a partir de este código HTML sencillo</p>
@@ -34,6 +35,8 @@ exports.contenidoHtml = function (doc){
     <p> Tipo de Carga: <strong> ${doc.tipoCarga } </strong></p>
     <p> Ventilación: <strong> ${doc.ventilacion } </strong></p>
     <p> Comentarios: <strong> ${doc.coments } </strong></p> 
+    <img src="${image}" >
     </div>
+ 
     `
 }

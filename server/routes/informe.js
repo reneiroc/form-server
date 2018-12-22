@@ -9,6 +9,7 @@ router.get('/', informe.listInformes);
 router.post('/', informe.createInforme);
 router.get('/:id', informe.getInforme);
 router.put('/:id', informe.editInforme);
+router.post('/uploader', informe.uploader);
  
 module.exports = router;
 
