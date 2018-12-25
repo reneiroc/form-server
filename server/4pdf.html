@@ -1,0 +1,95 @@
+<html>
+<head>
+    <style type="text/css">
+    body{
+
+        font-size: small;
+
+    }
+    </style>
+</head>
+<body>
+    <div id="pageHeader">Default header</div>
+        <div id="pageFooter">Default footer</div>
+        <div style= "padding-left: 20px; font-size: small;">
+    
+    
+        <h1>Informe de Consolidación</h1>
+        <p> <h2><strong> Datos de Reporte de Consolidación </strong> </h2></p>
+       
+            <table style="width: 100%; font-size: small;">
+            <tbody>
+            <tr >
+            <td >ORDEN</td>
+            <td > <strong> ${doc.orden} </strong></td>
+            <td >EMPRESA TRANSPORTE</td>
+            <td ><strong> ${doc.empresaTransporte } </strong></td>
+            </tr>
+            <tr >
+            <td >PLANTA</td>
+            <td ><strong> ${doc.planta} </strong><</td>
+            <td >CANTIDAD PALLETS</td>
+            <td ><strong> ${doc.cantPallets } </strong></td>
+            </tr>
+            <tr >
+            <td >CONTAINER</td>
+            <td > <strong> ${doc.container } </strong></td>
+            <td >HORA DE CARGA</td>
+            <td ><strong> ${doc.horaCarga } </strong></td>
+            </tr>
+            <tr >
+            <td >MOTONAVE</td>
+            <td ><strong> ${doc.motonave } </strong></td>
+            <td >SETEO CONTENEDOR</td>
+            <td ><strong> ${doc.numeroSeteoContainer } </strong></td>
+            </tr>
+            <tr >
+            <td >IMPORTADOR</td>
+            <td ><strong> ${doc.inporter } </strong></td>
+            <td >NO. BOLSAS</td>
+            <td ><strong> ${doc.nroBolsas } </strong></td>
+            </tr>
+            <tr >
+            <td >PUERTO DESTINO</td>
+            <td ><strong> ${doc.portDest } </strong></td>
+            <td >LIMPIO</td>
+            <td ><strong> ${doc.limpio = true ? 'Si': 'No'} </strong></td>
+            </tr>
+            <tr >
+            <td >PUERTO ORIGEN</td>
+            <td ><strong> ${doc.portOrig } </strong></td>
+            <td >PRE-ENFRIADO</td>
+            <td ><strong> ${doc.preEnfriado = true ? 'Si': 'No'} </strong></td>
+            </tr>
+            <tr >
+            <td >ESPECE</td>
+            <td ><strong> ${doc.espices } </strong></td>
+            <td >EN BUEN ESTADO</td>
+            <td ><strong> ${doc.buenEstado = true ? 'Si': 'No'} </strong></td>
+            </tr>
+            <tr >
+            <td >PATENTE CAMION</td>
+            <td ><strong> ${doc.patenteCamion } </strong></td>
+            <td >TIPO DE CARGA</td>
+            <td ><strong> ${doc.tipoCarga } </strong></td>
+            </tr>
+            <tr >
+            <td >BOOKING</td>
+            <td ><strong> ${doc.booking } </strong></td>
+            <td >VENTILACION&nbsp;</td>
+            <td ><strong> ${doc.ventilacion } </strong></td>
+            </tr>
+            </tbody>
+            </table>
+            <h2> *** FOTOS DE CONSOLIDACIÓN DE CARGA*** </h2>
+            <div> Comentarios: <strong> ${doc.coments } </strong> </div>
+            <div>
+                <img src="${img1}" style="width: 300px; height: 300px; padding-right: 10px; padding-bottom: 10px;" >
+                <img src="${img2}" style="width: 300px; height: 300px; padding-right: 10px; padding-bottom: 10px;" >
+                <img src="${img3}" style="width: 300px; height: 300px; padding-right: 10px; padding-bottom: 10px;" >
+                <img src="${img4}" style="width: 300px; height: 300px; padding-right: 10px; padding-bottom: 10px;" >
+            </div>
+     
+    </div>
+</body>
+</html>

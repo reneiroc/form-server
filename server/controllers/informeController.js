@@ -97,16 +97,15 @@ let mail = function(informe){
         
         `
 
-        // const contenidoHtml = `
-        // <h1>Ultimo OTRO PDF Esto es un test de html-pdf</h1>
-        // <p>Ultimo OTRO  Estoy generando PDF a partir de este código HTML sencillo</p>
-        // `;
-        // const con = contenidoHtml;
         // Generar PDF
-        var imgSrc = 'file://' + __dirname + '/informe-1545274649217.jpg';
-        imgSrc = path.normalize(imgSrc);
-        const contenidoHtml  = html.contenidoHtml(doc, imgSrc);//envio nombre de imagen
-        console.log (contenidoHtml);
+
+        // var imgSrc = 'file://' + __dirname + '/informe-1545274649217.jpg';
+        // imgSrc = path.normalize(imgSrc);
+        // const contenidoHtml  = html.contenidoHtml(doc, imgSrc);//envio nombre de imagen
+        
+        // console.log(filesPDF);
+        const contenidoHtml  = html.contenidoHtml(doc, filesPDF);//envio nombre de imagen
+        // console.log (contenidoHtml);
         const config = {
             // "base": "file://" + __dirname + "/public/uploads", 
             // Base path that's used to load files (images, css, js) when they aren't referenced using a host
@@ -131,8 +130,10 @@ let mail = function(informe){
                 };
                 transporter.sendMail(mailOptions, (error, info) => {
                     if (error) {
-                        return console.log(error);
+                      console.log(error);
+                      return error;
                     }
+                    filesPDF = [];
                     console.log('Message sent: %s', info.messageId);
                     // Preview only available when sending through an Ethereal account
                     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
@@ -161,9 +162,9 @@ exports.getInforme = async (req, res) => {
 };
 
 
-// Set The Storage Engine
+// Set The Storage Engine for Multer
 const storage = multer.diskStorage({
-    destination: 'public/uploads/',
+    destination: 'server/uploads/',
     filename: function(req, file, cb){
       cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
@@ -197,7 +198,7 @@ const storage = multer.diskStorage({
 
 // Funcion para guardar archivo
 exports.uploader = (req, res) => {
-  console.log(req);
+  // console.log(req);
     upload(req, res, (err) => {
         if (err) {
 
@@ -209,12 +210,16 @@ exports.uploader = (req, res) => {
             console.log('errore no file selected');
           } else {
               filesPDF.push(req.file.filename);//Agregar el nombre de archivo uploa
-            res.send({
-              msg: 'File Uploaded!',
-              file: `public/uploads/${req.file.filename}`,
-              fromVar: filesPDF
-            });
-          console.log (req.file);
+            // res.json({
+            //   msg: 'File Uploaded!',
+            //   file: `public/uploads/${req.file.filename}`,
+            //   fromVar: filesPDF});
+            
+            // res.json({name: req.file.filename, creado: true})
+            // console.log(filesPDF);
+            res.json({name: filesPDF, creado: true})
+
+          // console.log (req.file);
           }
         }
       });
