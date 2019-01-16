@@ -56,8 +56,8 @@ let mail = function(informe){
         port: 465,
         secure: true, // true for 465, false for other ports
         auth: {
-            user: process.env.SMTP_USER, // generated ethereal user
-            pass: process.env.SMTP_PASS // generated ethereal password
+            user: 'contacto@rcwebmaster.com',//process.env.SMTP_USER, // generated ethereal user
+            pass: 'Contacto2018*'//process.env.SMTP_PASS // generated ethereal password
 
         }
       };
@@ -118,8 +118,8 @@ let mail = function(informe){
                 console.log('creado');
                 let mailOptions = {
                     from: '"RSK Chile 📃" <contacto@rcwebmaster.com>', // sender address
-                  //   to: 'reneiroc@gmail.com, caguilar@riskconsulting.cl', // list of receivers
-                    to: 'reneiroc@gmail.com', // list of receivers
+                    to: 'reneiroc@gmail.com, caguilar@riskconsulting.cl', // list of receivers
+                    // to: 'reneiroc@gmail.com', // list of receivers
                     subject: 'Reporte de Consolidación ✔', // Subject line
                     text: datos, // plain text body
                     html: datos,// html body
@@ -164,7 +164,19 @@ exports.getInforme = async (req, res) => {
 
 // Set The Storage Engine for Multer
 const storage = multer.diskStorage({
-    destination: 'server/uploads/',
+
+    // destination: './uploads', // Usando Pm2 pero da error en carga via cel
+    destination: './server/uploads', // Solo ejecutando: sudo node app.js
+
+    // IMPORTANTE**********
+    // est afuncionando solo ejecutando sudo node app.js 
+    // funciono con el celular, se quito la restriccion de Multer del limite de archivo
+    // revisar ese parametro poe que al quitar el parametro pasaron las fotos del cel
+  //************************* */
+
+    // destination: function(req, file, cb) {
+    //   cb(null, './server/uploads')
+    // },
     filename: function(req, file, cb){
       cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
@@ -173,8 +185,9 @@ const storage = multer.diskStorage({
   // Iniciar Upload
   const upload = multer({
     storage: storage,
-    limits:{fileSize: 1000000},
+    // limits:{fileSize: 1000000},
     fileFilter: function(req, file, cb){
+      
       checkFileType(file, cb);
     }
   }).single('informe');
@@ -225,59 +238,3 @@ exports.uploader = (req, res) => {
       });
 
 }
-
-
-
-
-// 
-// let createPDF = function (){
-//     const contenidoHtml = `
-//     <h1>OTRO PDF Esto es un test de html-pdf</h1>
-//     <p>OTRO  Estoy generando PDF a partir de este código HTML sencillo</p>
-//     `;
-//     // Generar PDF
-//     pdf.create(contenidoHtml).toFile('./informePDF/pdf.pdf', function(err, res) {
-//         if (err){
-//             console.log(err);
-//         } else {
-//             console.log(res);
-//             console.log('creado');
-         
-//         }
-//     });
-    
-// }
-
-
-// var smtpConfig = {
-//     host: 'smtp.ionos.com',
-//     port: 465,
-//     secure: true, // true for 465, false for other ports
-//     auth: {
-//         user: 'contacto@rcwebmaster.com', // generated ethereal user
-//         pass: 'Maya0978*' // generated ethereal password
-//     }
-// };
-// var transporter = nodemailer.createTransport(smtpConfig);
-
-// // setup email data with unicode symbols
-// let mailOptions = {
-//     from: '"Fred Foo 👻" <contacto@rcwebmaster.com>', // sender address
-//     to: 'reneiroc@gmail.com', // list of receivers
-//     subject: 'Hello ✔', // Subject line
-//     text: 'Hello world?', // plain text body
-//     html: '<b>Hello world?</b>' // html body
-// };
-
-// // send mail with defined transport object
-// transporter.sendMail(mailOptions, (error, info) => {
-//     if (error) {
-//         return console.log(error);
-//     }
-//     console.log('Message sent: %s', info.messageId);
-//     // Preview only available when sending through an Ethereal account
-//     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-
-//     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-//     // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-// });

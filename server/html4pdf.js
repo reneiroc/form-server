@@ -14,7 +14,7 @@ exports.contenidoHtml = function (doc, images){
     img2 = path.normalize(img2);
     img3 = path.normalize(img3);
     img4 = path.normalize(img4);
-    
+    console.log(img1);
 
 
     return `
@@ -102,15 +102,15 @@ exports.contenidoHtml = function (doc, images){
         </tr>
         </tbody>
         </table>
-        <h2> *** FOTOS DE CONSOLIDACIÓN DE CARGA*** </h2>
         <div> Comentarios: <strong> ${doc.coments } </strong> </div>
         <br>
         <br>
+        <h2> *** FOTOS DE CONSOLIDACIÓN DE CARGA*** </h2>
         <div>
-            <img src="${img1}" style="width: 230px; height: 230px; padding-right: 10px; padding-bottom: 10px;" >
-            <img src="${img2}" style="width: 230px; height: 230px; padding-right: 10px; padding-bottom: 10px;" >
-            <img src="${img3}" style="width: 230px; height: 230px; padding-right: 10px; padding-bottom: 10px;" >
-            <img src="${img4}" style="width: 230px; height: 230px; padding-right: 10px; padding-bottom: 10px;" >
+            <img src="${img1}" style="width: 200px; height: 200px; padding-right: 10px; padding-bottom: 10px;" >
+            <img src="${img2}" style="width: 200px; height: 200px; padding-right: 10px; padding-bottom: 10px;" >
+            <img src="${img3}" style="width: 200px; height: 200px; padding-right: 10px; padding-bottom: 10px;" >
+            <img src="${img4}" style="width: 200px; height: 200px; padding-right: 10px; padding-bottom: 10px;" >
         </div>
  </body>
 </div>

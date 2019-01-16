@@ -1,0 +1,8 @@
+Instale Multer para probar el siguiente tutorial.
+https://appdividend.com/2018/05/25/angular-6-file-upload-tutorial/
+
+En el formulario de angular instale tambien rxjs-compat para seguir el mismo tutoria.
+
+Otro tutorial seguido:
+
+https://malcoded.com/posts/angular-file-upload-component-with-express
