@@ -57,7 +57,7 @@ let mail = function(informe){
         secure: true, // true for 465, false for other ports
         auth: {
             user: 'contacto@rcwebmaster.com',//process.env.SMTP_USER, // generated ethereal user
-            pass: 'Contacto2018*'//process.env.SMTP_PASS // generated ethereal password
+            pass: '2019Correo*'//process.env.SMTP_PASS // generated ethereal password
 
         }
       };
@@ -85,11 +85,17 @@ let mail = function(informe){
         <p> Empresa Transporte: <strong> ${doc.empresaTransporte } </strong></p>
         <p> Cantidad de Pallets: <strong> ${doc.cantPallets } </strong></p>
         <p> Hora de Carga: <strong> ${doc.horaCarga } </strong></p>
+        <p> Termografo: <strong> ${doc.termografo1 } </strong></p>
+        <p> Pallet: <strong> ${doc.termografoPallet1 } </strong></p>
+        <p> Termografo: <strong> ${doc.termografo2 } </strong></p>
+        <p> Pallet: <strong> ${doc.termografoPallet2 } </strong></p>
         <p> Nro. Seteo Container: <strong> ${doc.numeroSeteoContainer } </strong></p>
-        <p> Nro. Bolsas: <strong> ${doc.nroBolsas } </strong></p>
+        <p> Cantidad de Cajas: <strong> ${doc.cantCajas } </strong></p>
         <p> Limpio: <strong> ${doc.limpio = true ? 'Si': 'No'} </strong></p>
         <p> Pre-Enfriad: <strong> ${doc.preEnfriado = true ? 'Si': 'No'} </strong></p>
         <p> En buen estado: <strong> ${doc.buenEstado = true ? 'Si': 'No'} </strong></p>
+        <p> Quest: <strong> ${doc.quest = true ? 'Si': 'No'} </strong></p>
+
         <p> Tipo de Carga: <strong> ${doc.tipoCarga } </strong></p>
         <p> Ventilación: <strong> ${doc.ventilacion } </strong></p>
         <p> Comentarios: <strong> ${doc.coments } </strong></p> 
@@ -107,10 +113,14 @@ let mail = function(informe){
         const contenidoHtml  = html.contenidoHtml(doc, filesPDF);//envio nombre de imagen
         // console.log (contenidoHtml);
         const config = {
-            // "base": "file://" + __dirname + "/public/uploads", 
+            // "base": "file://" + __dirname + "/public/css", 
             // Base path that's used to load files (images, css, js) when they aren't referenced using a host
+            "format": "Letter",
+            "height": "10.5in",        // allowed units: mm, cm, in, px
+            "width": "8in",            // allowed units: mm, cm, in, px
+            "orientation": "landscape", // portrait or landscape
         }
-        pdf.create(contenidoHtml).toFile('./informePDF/pdf.pdf', function(err, res) {
+        pdf.create(contenidoHtml, config).toFile('./informePDF/pdf.pdf', function(err, res) {
             if (err){
                 console.log(err);
             } else { // Si se creo el archvoo con exito se envia el emal con adjunto
@@ -118,8 +128,8 @@ let mail = function(informe){
                 console.log('creado');
                 let mailOptions = {
                     from: '"RSK Chile 📃" <contacto@rcwebmaster.com>', // sender address
-                    to: 'reneiroc@gmail.com, caguilar@riskconsulting.cl', // list of receivers
-                    // to: 'reneiroc@gmail.com', // list of receivers
+                    // to: 'reneiroc@gmail.com, caguilar@riskconsulting.cl', // list of receivers
+                    to: 'reneiroc@gmail.com', // list of receivers
                     subject: 'Reporte de Consolidación ✔', // Subject line
                     text: datos, // plain text body
                     html: datos,// html body
